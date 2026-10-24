@@ -1,0 +1,19 @@
+{
+  "name": "tripo-extractor",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Extrae el GLB de un modelo público de Tripo 3D desde su página de Studio.",
+  "bin": {
+    "tripo-extractor": "./extraer.mjs"
+  },
+  "scripts": {
+    "extraer": "node extraer.mjs"
+  },
+  "dependencies": {
+    "playwright-core": "^1.49.0"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

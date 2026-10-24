@@ -1,0 +1,19 @@
+{
+  "name": "meshy-extractor",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Extrae un modelo GLB desde una página pública de Meshy, descifrando el contenedor .meshy con el worker del propio visor.",
+  "bin": {
+    "meshy-extractor": "./extraer.mjs"
+  },
+  "scripts": {
+    "extraer": "node extraer.mjs"
+  },
+  "dependencies": {
+    "playwright-core": "^1.49.0"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

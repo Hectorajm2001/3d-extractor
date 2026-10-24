@@ -1,0 +1,7 @@
+node_modules/
+salidas/
+pruebas/
+muestras-gpu/
+recon/
+*.zip
+*.log

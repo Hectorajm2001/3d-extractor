@@ -1,0 +1,13 @@
+node_modules/
+**/node_modules/
+salidas/
+**/salidas/
+pruebas/
+**/pruebas/
+muestras-gpu/
+**/muestras-gpu/
+recon/
+**/recon/
+_otros/
+*.zip
+*.log
