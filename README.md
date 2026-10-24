@@ -58,6 +58,8 @@ animaciones/        clips de retargeting (Tripo, opcional)
 
 ## Verificar un GLB
 
+Desde la carpeta de la herramienta correspondiente:
+
 ```bat
 node verificar.mjs "salidas\<id>\modelo.glb"
 ```
