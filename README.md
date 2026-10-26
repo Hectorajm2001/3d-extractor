@@ -1,78 +1,116 @@
-# 3D Extractor
+<div align="center">
 
-Dos herramientas de línea de comandos para recuperar modelos **GLB** desde páginas públicas de **Meshy** y **Tripo 3D**, con sus texturas, vistas previas y metadatos. Pensadas para modelos propios o públicos sobre los que tengas derechos.
+# 3dx
 
-| Herramienta | Qué hace | Método |
+### Save any public **Meshy** or **Tripo 3D** model as a ready-to-use **GLB**.
+One command. Textures, previews and metadata included.
+
+[![GitHub stars](https://img.shields.io/github/stars/Hectorajm2001/3d-extractor?style=for-the-badge&logo=github&color=f5c542)](https://github.com/Hectorajm2001/3d-extractor/stargazers)
+[![License: MIT](https://img.shields.io/github/license/Hectorajm2001/3d-extractor?style=for-the-badge&color=4ade80)](LICENSE)
+[![Node 20+](https://img.shields.io/badge/node-%E2%89%A520-22d3ee?style=for-the-badge&logo=node.js&logoColor=white)](https://nodejs.org)
+[![Platforms](https://img.shields.io/badge/Windows%20%C2%B7%20macOS%20%C2%B7%20Linux-8b5cf6?style=for-the-badge)](#requirements)
+
+<img src="docs/extract.png" alt="3dx extracting a Meshy model" width="820">
+
+**If this saved you time, a ⭐ helps other 3D folks find it.**
+
+</div>
+
+---
+
+## Why 3dx
+
+- **Paste a link, get a GLB.** No accounts, no DevTools, no copy-pasting signed URLs.
+- **Auto-detects** Meshy or Tripo from the URL.
+- **Everything in one folder:** `modelo.glb`, PBR textures, preview images, input image and a `metadata.json` (name, author, prompt, hashes).
+- **Pretty and friendly:** interactive prompts, live progress, clear errors.
+- **Works with Brave, Chrome or Edge** that you already have installed. Nothing big to download.
+
+## Quick start
+
+```bash
+git clone https://github.com/Hectorajm2001/3d-extractor.git
+cd 3d-extractor
+npm install
+```
+
+Run it with no arguments for the interactive flow:
+
+```bash
+npm start
+```
+
+<div align="center">
+<img src="docs/interactive.png" alt="3dx interactive mode" width="820">
+</div>
+
+Or pass a link directly:
+
+```bash
+npm start -- "https://www.meshy.ai/3d-models/019dd323-03a2-77fe-915e-239595f2e69b"
+npm start -- "https://studio.tripo3d.ai/3d-model/steampunk-airship-with-striped-balloon-wooden-hull-and-metallic-brace-8dce1dae-e552-42cd-9e63-bb068bd04ceb"
+```
+
+Want a global `3dx` command? Run `npm link` once, then just `3dx <url>`.
+
+## Options
+
+| Flag | What it does |
+|---|---|
+| `-o, --out <dir>` | Output folder (default `./models`) |
+| `-m, --mode <mode>` | Tripo only: `payload` (default), `network`, or `gpu` |
+| `--no-textures` | Skip PBR texture maps |
+| `--no-preview` | Skip preview images |
+| `--show-browser` | Show the browser window (helps if headless fails) |
+| `--browser <path>` | Point to a specific Brave / Chrome / Edge |
+| `3dx verify <file.glb>` | Inspect a GLB: triangles, skins, animations, materials, textures |
+
+## What you get
+
+```
+models/<id>/
+├── modelo.glb        the model
+├── metadata.json     name, author, prompt, SHA-256, signature expiry
+├── preview.webp      official preview
+├── texturas/         PBR maps (color, normal, roughness, metallic)
+└── animaciones/      Tripo retargeting clips (optional)
+```
+
+Open the GLB in Blender, three.js, Godot, Unity, or [gltf-viewer.donmccurdy.com](https://gltf-viewer.donmccurdy.com).
+
+## Tripo modes
+
+| Mode | Best for | Keeps rig? |
 |---|---|---|
-| [`meshy-extractor`](meshy-extractor/) | Descarga el GLB de un modelo público de Meshy, con sus mapas PBR y su preview. | Reproduce el worker de descifrado del visor de Meshy. |
-| [`tripo-extractor`](tripo-extractor/) | Descarga el GLB de un modelo público de Tripo Studio, con sus texturas PBR, preview, entrada y clips de animación. | Lee el payload de Nuxt, intercepta la respuesta del visor o captura el frame WebGL. |
+| `payload` (default) | Fast, full quality | Yes |
+| `network` | When the payload has no URL; grabs what the viewer downloads | Yes |
+| `gpu` | Last resort; rebuilds the mesh from WebGL | No (static) |
 
-## Requisitos
+## Requirements
 
-- **Node.js 20 o superior** (probado con Node 24).
-- **Brave, Chrome o Edge** instalado.
-- Conexión a internet.
-- `npm install` en cada herramienta la primera vez.
+- Node.js 20+
+- Brave, Chrome or Edge (auto-detected on Windows, macOS and Linux)
+- Internet connection
 
-## Uso rápido
+## How it works
 
-### Meshy
+- **Meshy** serves a proprietary `.meshy` container that its viewer decrypts in the browser. 3dx runs that same worker inside `meshy.ai` and streams the resulting GLB to disk.
+- **Tripo** server-renders the page and exposes a signed GLB URL in its Nuxt payload. 3dx reads it; if missing, it can intercept the viewer's download or capture WebGL buffers with [WebGLRipper](https://github.com/int3re/WebGLRipper) (MIT).
 
-```bat
-cd meshy-extractor
-npm install
-node extraer.mjs "https://www.meshy.ai/es/3d-models/888fabf2-9177-490e-a78c-1d8ef8d1cdb3"
-```
+Each engine also works standalone, see [`meshy-extractor`](meshy-extractor/) and [`tripo-extractor`](tripo-extractor/) (their READMEs are in Spanish).
 
-### Tripo
+## Responsible use
 
-```bat
-cd tripo-extractor
-npm install
-node extraer.mjs "https://studio.tripo3d.ai/3d-model/orange-fox-with-headset-stylized-3d-character-with-white-chest-and-pa-b7bd7346-90d4-4ec7-8b8f-525fc00b0907"
-```
+Use 3dx only on models you own or have explicit permission to use. It retrieves assets the viewers already send to your browser; it does not make a private model free or replace a license. Respect Meshy's and Tripo's terms and the creators' copyright.
 
-Tripo admite tres modos:
+## Contributing
 
-```bat
-node extraer.mjs <url>                 :: payload (defecto): URL firmada del payload de Nuxt
-node extraer.mjs <url> --modo red      :: intercepta el GLB que descarga el visor
-node extraer.mjs <url> --modo gpu      :: reconstruye la malla desde WebGL (estática, sin rig)
-```
+Issues and PRs are welcome: new platforms, fixes when a site changes, translations. Keep PRs small and say which URL you tested.
 
-Cada carpeta tiene su propio `README.md` con todas las opciones, la estructura de salida y la solución de problemas.
+## Star history
 
-## Salida
+[![Star History Chart](https://api.star-history.com/svg?repos=Hectorajm2001/3d-extractor&type=Date)](https://star-history.com/#Hectorajm2001/3d-extractor&Date)
 
-Cada modelo se guarda en `salidas/<id>/`:
+## License
 
-```
-modelo.glb          GLB (o modelo-red.glb / modelo-gpu.glb según el modo)
-metadata.json       nombre, prompt, autor, hashes, caducidad de la firma
-preview.webp        vista previa oficial
-render.webp         render del visor
-entrada.jpg         imagen de entrada
-texturas/           mapas PBR extraídos
-animaciones/        clips de retargeting (Tripo, opcional)
-```
-
-## Verificar un GLB
-
-Desde la carpeta de la herramienta correspondiente:
-
-```bat
-node verificar.mjs "salidas\<id>\modelo.glb"
-```
-
-## Cómo funciona, en breve
-
-- **Meshy** sirve un contenedor propietario `.meshy` que el visor descifra en el navegador. `meshy-extractor` ejecuta el mismo worker dentro de `www.meshy.ai` y transfiere el GLB resultante a Node.
-- **Tripo** renderiza la página en servidor y publica la URL firmada del GLB en el payload de Nuxt. `tripo-extractor` la lee; si no está disponible, puede interceptar la respuesta del visor o capturar los buffers y texturas de WebGL con [WebGLRipper](https://github.com/int3re/WebGLRipper) (MIT).
-
-## Aviso de uso
-
-Usa estas herramientas únicamente con modelos propios o con permiso explícito del titular. Recuperan assets que los visores sirven a tu navegador para visualizarlos; no convierten en libre un modelo privado ni sustituyen una licencia. Respeta los términos de Meshy y Tripo y los derechos de autor.
-
-## Licencia
-
-MIT. Consulta [`LICENSE`](LICENSE). El modo `gpu` de Tripo incluye el motor de WebGLRipper bajo su propia licencia MIT en `tripo-extractor/vendor/webglripper.LICENSE`.
+MIT, see [`LICENSE`](LICENSE). Tripo's `gpu` mode bundles WebGLRipper under its own MIT license in `tripo-extractor/vendor/`.

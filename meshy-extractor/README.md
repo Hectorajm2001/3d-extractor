@@ -29,9 +29,9 @@ node extraer.mjs <url-o-id> [opciones]
 Ejemplos:
 
 ```bat
-node extraer.mjs "https://www.meshy.ai/es/3d-models/888fabf2-9177-490e-a78c-1d8ef8d1cdb3?share_type=3d-models"
+node extraer.mjs "https://www.meshy.ai/es/3d-models/019dd323-03a2-77fe-915e-239595f2e69b?share_type=3d-models"
 
-node extraer.mjs 888fabf2-9177-490e-a78c-1d8ef8d1cdb3 --salida "D:\modelos"
+node extraer.mjs 019dd323-03a2-77fe-915e-239595f2e69b --salida "D:\modelos"
 
 node extraer.mjs <url> --sin-texturas --sin-preview
 ```
@@ -69,15 +69,15 @@ node verificar.mjs "salidas\<task-id>\modelo.glb"
 
 Imprime tamaño, SHA-256, cabecera, triángulos, vértices, skins, animaciones, morph targets y texturas.
 
-Ejemplo ya validado (`cartoon_fox_headset`):
+Ejemplo ya validado (modelo público de la comunidad de Meshy):
 
 | Métrica | Valor |
 |---|---:|
-| Tamaño | 46.72 MB |
-| Triángulos | 2,194,084 |
-| Vértices | 1,132,893 |
-| Texturas | 3 WebP 4K |
-| SHA-256 | `9662a853013dfea48229a856408d1a94eb57bd1eac90cebc66502d1a222e5997` |
+| Tamaño | 20.26 MB |
+| Triángulos | 659,684 |
+| Vértices | 387,119 |
+| Texturas | 4 WebP |
+| SHA-256 | `858198a4b717cfa37ea331f0927a8f102f79e6f1663cf8978ce7aa6e3776aeb2` |
 
 ## Cómo funciona
 

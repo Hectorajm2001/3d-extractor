@@ -50,7 +50,7 @@ function parseArgs(argv) {
   }
   if (!args.objetivo) {
     console.error("Falta la URL o el ID del modelo.");
-    console.error("Ejemplo: node extraer.mjs https://www.meshy.ai/es/3d-models/888fabf2-9177-490e-a78c-1d8ef8d1cdb3");
+    console.error("Ejemplo: node extraer.mjs https://www.meshy.ai/es/3d-models/019dd323-03a2-77fe-915e-239595f2e69b");
     process.exit(1);
   }
   return args;

@@ -1,0 +1,15 @@
+{
+  "name": "3d-extractor",
+  "version": "1.0.0",
+  "description": "One command to save public Meshy and Tripo 3D models as GLB, with PBR textures, previews and metadata.",
+  "type": "module",
+  "license": "MIT",
+  "bin": { "3dx": "./bin/3dx.mjs" },
+  "scripts": { "start": "node bin/3dx.mjs" },
+  "engines": { "node": ">=20" },
+  "dependencies": {
+    "@clack/prompts": "^0.11.0",
+    "picocolors": "^1.1.1",
+    "playwright-core": "^1.49.0"
+  }
+}

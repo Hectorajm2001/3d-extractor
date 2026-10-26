@@ -29,9 +29,9 @@ node extraer.mjs <url-o-id> [opciones]
 Ejemplos:
 
 ```bat
-node extraer.mjs "https://studio.tripo3d.ai/3d-model/orange-fox-with-headset-stylized-3d-character-with-white-chest-and-pa-b7bd7346-90d4-4ec7-8b8f-525fc00b0907"
+node extraer.mjs "https://studio.tripo3d.ai/3d-model/steampunk-airship-with-striped-balloon-wooden-hull-and-metallic-brace-8dce1dae-e552-42cd-9e63-bb068bd04ceb"
 
-node extraer.mjs b7bd7346-90d4-4ec7-8b8f-525fc00b0907 --salida "D:\modelos"
+node extraer.mjs 8dce1dae-e552-42cd-9e63-bb068bd04ceb --salida "D:\modelos"
 
 node extraer.mjs <url> --sin-texturas --sin-preview --sin-entrada
 
@@ -100,7 +100,7 @@ node verificar.mjs "salidas\<project-id>\modelo-gpu.glb"
 
 Imprime tamaño, SHA-256, cabecera, triángulos, vértices, skins, animaciones, morph targets, materiales, texturas y extensiones.
 
-Ejemplo ya validado (`fox 3d model`, riggeado):
+Ejemplo ya validado (modelo público de Tripo con rig):
 
 | Métrica | `payload` / `red` | `gpu` (compacto) |
 |---|---:|---:|
